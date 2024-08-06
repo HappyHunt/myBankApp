@@ -1,0 +1,25 @@
+<div [formGroup]="form" class="bank-account">
+  <div class="bank-account__name">
+    Name: <span class="font-weight-bold"> {{account.name}} </span>
+  </div>
+  <div class="bank-account__status" [class]="'bank-account__status--' + account.status">
+<!--    Status: {{account.status}} -->
+  </div>
+  <div class="bank-account__balance">
+    Balance: <span class="font-weight-bold"> {{account.balance | balance:account.currency:true}} </span>
+  </div>
+  <div class="bank-account__currency">
+    Currency: <span class="font-weight-bold"> {{account.currency}} </span>
+  </div>
+  <div class="bank-account__withdraw">
+    <input formControlName="withdraw" placeholder="Withdraw" type="number">
+    <button (click) = "withdrawMoney()" [disabled]="!withdrawControlValue || !form.valid">Withdraw</button>
+  </div>
+  <ng-container *ngIf="withdrawControl.dirty && withdrawControl.errors as errors" >
+    <p *ngIf="errors['min'] as minError" > Minimum value is {{ minError.min }}</p>
+    <p *ngIf="errors['max'] as maxError" > Insufficient money account!</p>
+  </ng-container>
+  <p *ngIf="showWithdrawWarning && form.valid" class="withdraw__warning">
+    {{ 'Are you sure to withdraw '+ withdrawControlValue +'?'}}
+  </p>
+</div>
