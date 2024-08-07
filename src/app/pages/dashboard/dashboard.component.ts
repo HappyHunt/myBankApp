@@ -2,8 +2,7 @@ import { Component, inject } from '@angular/core';
 import { BankAccountComponent } from './components/bank-account/bank-account.component';
 import { AsyncPipe, NgClass, NgForOf, NgIf } from '@angular/common';
 import { BankAccountHttpService } from './components/services/bank-account-http.service';
-import { combineLatest, map, Observable } from 'rxjs';
-import { BankAccount } from './models/dashboard.model';
+import { combineLatest, map } from 'rxjs';
 
 @Component({
   selector: 'app-dashboard',

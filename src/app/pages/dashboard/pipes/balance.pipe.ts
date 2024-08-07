@@ -1,7 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { Currency } from '../models/dashboard.model';
 
-const translatedCurrency: any = {
+const translatedCurrency = {
   PLN: 'złotych',
   EUR: 'euro',
   USD: 'dolarów',
