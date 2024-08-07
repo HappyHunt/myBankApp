@@ -1,9 +1,21 @@
-.bank-account{
+.bank-account {
   border: 1px solid black;
   border-radius: 5px;
   padding: 10px;
   margin: 10px;
   position: relative;
+
+  & &__balance {
+    color: black;
+
+    &--positive {
+      color: green;
+    }
+
+    &--negative {
+      color: red;
+    }
+  }
 
   & &__status {
     position: absolute;
@@ -17,16 +29,24 @@
     &--active {
       background-color: green;
     }
+
     &--inactive {
       background-color: red;
     }
   }
-  & &__withdraw{
+
+  & &__currency {
+    display: flex;
+    align-items: center;
+
+    img {
+      margin-left: 10px;
+      width: 25px;
+    }
+  }
+
+  & &__withdraw {
     display: block;
     margin: 10px 0;
   }
-}
-
-.bank-account__status {
-
 }

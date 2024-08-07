@@ -1,0 +1,12 @@
+{
+  "extends": "stylelint-config-standard",
+  "customSyntax": "postcss-scss",
+  "plugins": ["stylelint-scss"],
+  "rules": {
+    "import-notation": null,
+    "at-rule-no-unknown": null,
+    "function-no-unknown": null,
+    "no-invalid-position-at-import-rule": null,
+    "scss/at-rule-no-unknown": true
+  }
+}

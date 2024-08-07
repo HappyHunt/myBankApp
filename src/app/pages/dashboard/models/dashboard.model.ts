@@ -9,7 +9,7 @@ export interface BankAccount {
 export type Status = 'active' | 'inactive';
 
 export enum Currency {
-  PLN = "PLN",
-  EUR = "EUR",
-  USD = "USD",
+  PLN = 'PLN',
+  EUR = 'EUR',
+  USD = 'USD',
 }

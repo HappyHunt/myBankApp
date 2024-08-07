@@ -6,7 +6,12 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "lint": "ng lint",
+    "prettier-check": "prettier --check src/**/*.{ts,html,scss}",
+    "prettier-write": "prettier --write src/**/*.{ts,html,scss}",
+    "stylelint": "npx stylelint \"**/*.scss\"",
+    "prepare": "cd ../../ && husky install"
   },
   "private": true,
   "dependencies": {
@@ -18,7 +23,13 @@
     "@angular/platform-browser": "^18.1.0",
     "@angular/platform-browser-dynamic": "^18.1.0",
     "@angular/router": "^18.1.0",
+    "husky": "^9.1.4",
+    "lint-staged": "^15.2.8",
+    "postcss-scss": "^4.0.9",
     "rxjs": "~7.8.0",
+    "stylelint": "^16.8.1",
+    "stylelint-config-standard": "^36.0.1",
+    "stylelint-scss": "^6.5.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.3"
   },
@@ -27,12 +38,27 @@
     "@angular/cli": "^18.1.2",
     "@angular/compiler-cli": "^18.1.0",
     "@types/jasmine": "~5.1.0",
+    "angular-eslint": "18.2.0",
+    "eslint": "^9.8.0",
     "jasmine-core": "~5.1.0",
     "karma": "~6.4.0",
     "karma-chrome-launcher": "~3.2.0",
     "karma-coverage": "~2.2.0",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
-    "typescript": "~5.5.2"
+    "prettier": "^3.3.3",
+    "typescript": "~5.5.2",
+    "typescript-eslint": "8.0.0"
+  },
+  "lint-staged": {
+    "*.{ts,html,scss}": [
+      "prettier --check src/**/*.{ts,scss,html}"
+    ],
+    "*.{ts,html}": [
+      "ng lint"
+    ],
+    "*.scss": [
+      "npx stylelint \"**/*.scss\""
+    ]
   }
 }

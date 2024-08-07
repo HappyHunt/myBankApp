@@ -1,25 +1,48 @@
 <div [formGroup]="form" class="bank-account">
   <div class="bank-account__name">
-    Name: <span class="font-weight-bold"> {{account.name}} </span>
+    Name: <span class="font-weight-bold"> {{ account.name }} </span>
   </div>
-  <div class="bank-account__status" [class]="'bank-account__status--' + account.status">
-<!--    Status: {{account.status}} -->
+  <div
+    class="bank-account__status"
+    [class]="'bank-account__status--' + account.status"
+  >
   </div>
-  <div class="bank-account__balance">
-    Balance: <span class="font-weight-bold"> {{account.balance | balance:account.currency:true}} </span>
+  <div
+    [ngClass]="{
+      'bank-account__balance--positive': balance > 0,
+      'bank-account__balance--negative': balance < 0,
+    }"
+    class="bank-account__balance"
+  >
+    Balance:
+    <span class="font-weight-bold">
+      {{ balance | balance: account.currency : true }}
+    </span>
   </div>
   <div class="bank-account__currency">
-    Currency: <span class="font-weight-bold"> {{account.currency}} </span>
+    Currency:
+    <img [src]="'icons/' + account.currency.toLowerCase() + '.svg'" alt="" />
   </div>
   <div class="bank-account__withdraw">
-    <input formControlName="withdraw" placeholder="Withdraw" type="number">
-    <button (click) = "withdrawMoney()" [disabled]="!withdrawControlValue || !form.valid">Withdraw</button>
+    <input formControlName="withdraw" placeholder="Withdraw" type="number" />
+    <button
+      (click)="withdrawMoney()"
+      [disabled]="!withdrawControlValue || !form.valid"
+    >
+      Withdraw
+    </button>
   </div>
-  <ng-container *ngIf="withdrawControl.dirty && withdrawControl.errors as errors" >
-    <p *ngIf="errors['min'] as minError" > Minimum value is {{ minError.min }}</p>
-    <p *ngIf="errors['max'] as maxError" > Insufficient money account!</p>
-  </ng-container>
-  <p *ngIf="showWithdrawWarning && form.valid" class="withdraw__warning">
-    {{ 'Are you sure to withdraw '+ withdrawControlValue +'?'}}
-  </p>
+  @if (withdrawControl.dirty && withdrawControl.errors; as errors) {
+    @if (errors["min"]; as minError) {
+      <p>Minimum value is {{ minError.min }}</p>
+    }
+    @if (errors["max"]) {
+      <p>Insufficient money account!</p>
+    }
+  }
+  @if (showWithdrawWarning && form.valid) {
+    <p class="withdraw__warning">
+      {{ "Are you sure to withdraw " + withdrawControlValue + "?" }}
+    </p>
+  }
 </div>

@@ -1,13 +1,14 @@
-<h2> Dashboard </h2>
+<h2>Dashboard</h2>
 
-<ng-container *ngIf="accounts$ | async as accounts; else loader">
-  <app-bank-account
-    *ngFor="let account of accounts; let i = index"
-    [account]=account
-    (withdrawMoney$)="onWithdrawMoney(account.id, $event)"
-    [ngClass]="{ 'main-account': i === 0}"></app-bank-account>
-</ng-container>
-
-<ng-template #loader>
+@if (accounts$ | async; as accounts) {
+  @for (account of accounts; track account.id; let i = $index) {
+    <app-bank-account
+      [account]="account"
+      (withdrawMoney$)="onWithdrawMoney(account.id, $event)"
+      [ngClass]="{ 'main-account': i === 0 }"
+    >
+    </app-bank-account>
+  }
+} @else {
   Loading...
-</ng-template>
+}

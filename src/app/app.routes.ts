@@ -1,9 +1,19 @@
 import { Routes } from '@angular/router';
-import {DashboardComponent} from "./pages/dashboard/dashboard.component";
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { PageNotFoundComponent } from './pages/dashboard/components/page-not-found/page-not-found.component';
 
 export const routes: Routes = [
   {
+    path: 'dashboard',
+    loadComponent: () => DashboardComponent,
+  },
+  {
     path: '',
-    component: DashboardComponent
-  }
+    pathMatch: 'full',
+    redirectTo: 'dashboard',
+  },
+  {
+    path: '**',
+    loadComponent: () => PageNotFoundComponent,
+  },
 ];
