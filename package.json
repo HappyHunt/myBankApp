@@ -8,8 +8,8 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "lint": "npx eslint",
-    "prettier-check": "prettier --check src/**/*.{ts,html,scss}",
-    "prettier-write": "prettier --write src/**/*.{ts,html,scss}",
+    "prettier-check": "prettier --check **/**/*.{ts,html,scss}",
+    "prettier-write": "prettier --write **/**/*.{ts,html,scss}",
     "stylelint": "npx stylelint \"**/*.scss\"",
     "prepare": "cd ../../ && husky install"
   },
