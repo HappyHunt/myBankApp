@@ -46,7 +46,9 @@
   }
 
   & &__withdraw {
-    display: block;
+    display: flex;
+    justify-content: left;
+    gap: 10px;
     margin: 10px 0;
   }
 }

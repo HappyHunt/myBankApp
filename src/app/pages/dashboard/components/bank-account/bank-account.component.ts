@@ -1,6 +1,12 @@
 import {
+  AfterContentInit,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
+  ContentChild,
+  ElementRef,
   EventEmitter,
+  inject,
   Input,
   OnDestroy,
   OnInit,
@@ -17,18 +23,34 @@ import { BalancePipe } from '../../pipes/balance.pipe';
 import { BankAccount } from '../../models/dashboard.model';
 import { NgClass, NgIf } from '@angular/common';
 import { Subject, takeUntil } from 'rxjs';
+import { CardStatusDirectives } from '../../../../shared/directives/card-status.directives';
+import { InputNumberComponent } from '../../../../shared/components/input-number/input-number.component';
 
 @Component({
   selector: 'app-bank-account',
   standalone: true,
-  imports: [FormsModule, BalancePipe, ReactiveFormsModule, NgIf, NgClass],
+  imports: [
+    FormsModule,
+    BalancePipe,
+    ReactiveFormsModule,
+    NgIf,
+    NgClass,
+    CardStatusDirectives,
+    InputNumberComponent,
+  ],
   templateUrl: './bank-account.component.html',
   styleUrl: './bank-account.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class BankAccountComponent implements OnInit, OnDestroy {
+export class BankAccountComponent
+  implements OnInit, AfterContentInit, OnDestroy
+{
+  @ContentChild('deleteButton') deleteButton!: ElementRef;
   @Input() account!: BankAccount;
   @Output() withdrawMoney$ = new EventEmitter<number>();
   destroy$: Subject<void> = new Subject<void>();
+
+  cdr = inject(ChangeDetectorRef);
 
   form!: FormGroup;
   showWithdrawWarning: boolean = false;
@@ -63,9 +85,17 @@ export class BankAccountComponent implements OnInit, OnDestroy {
       });
   }
 
+  ngAfterContentInit() {
+    if (this.account.status == 'inactive') {
+      this.deleteButton.nativeElement.disabled = true;
+    }
+  }
+
   withdrawMoney() {
     this.withdrawMoney$.next(this.withdrawControlValue);
-    this.withdrawControl.setValue(null);
+    this.form.reset();
+    this.cdr.detectChanges();
+    this.withdrawControl.addValidators(Validators.max(this.account.balance));
   }
 
   ngOnDestroy(): void {

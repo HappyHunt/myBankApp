@@ -1,0 +1,3 @@
+<p class="timer" [class.warning-text]="timer$() <= 60000">
+  {{ timer$() | date: "mm:ss" }}
+</p>

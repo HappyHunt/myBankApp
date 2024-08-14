@@ -1,4 +1,4 @@
-<div [formGroup]="form" class="bank-account">
+<div [appCardStatus]="account.status" [formGroup]="form" class="bank-account">
   <div class="bank-account__name">
     Name: <span class="font-weight-bold"> {{ account.name }} </span>
   </div>
@@ -23,7 +23,10 @@
     <img [src]="'icons/' + account.currency.toLowerCase() + '.svg'" alt="" />
   </div>
   <div class="bank-account__withdraw">
-    <input formControlName="withdraw" placeholder="Withdraw" type="number" />
+    <app-input-number
+      formControlName="withdraw"
+      placeholder="Withdraw"
+    ></app-input-number>
     <button
       (click)="withdrawMoney()"
       [disabled]="!withdrawControlValue || !form.valid"
@@ -44,4 +47,5 @@
       {{ "Are you sure to withdraw " + withdrawControlValue + "?" }}
     </p>
   }
+  <ng-content></ng-content>
 </div>

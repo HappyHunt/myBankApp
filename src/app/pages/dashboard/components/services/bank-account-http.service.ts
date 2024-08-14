@@ -50,6 +50,12 @@ export class BankAccountHttpService {
   }
 
   getVisibleAccounts(): Observable<number[]> {
-    return of(this.VISIBLE_ACCOUNTS).pipe(delay(500));
+    return of(this.VISIBLE_ACCOUNTS).pipe(delay(200));
+  }
+
+  deleteAccount(accountId: number) {
+    this.BANK_ACCOUNT = this.BANK_ACCOUNT.filter(
+      (account) => account.id !== accountId,
+    );
   }
 }

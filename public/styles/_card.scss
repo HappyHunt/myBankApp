@@ -1,0 +1,14 @@
+.card {
+  transition: 0.2s all;
+}
+
+.active-card {
+  background-color: darkseagreen;
+  border: 2px solid green;
+  box-shadow: 2px 0 22px 1px gray;
+}
+
+.inactive-card {
+  background-color: gainsboro;
+  border: 2px solid dimgrey;
+}

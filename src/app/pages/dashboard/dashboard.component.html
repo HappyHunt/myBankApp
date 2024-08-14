@@ -1,4 +1,7 @@
-<h2>Dashboard</h2>
+<div class="centerize">
+  <h2>Dashboard</h2>
+  <app-timer></app-timer>
+</div>
 
 @if (accounts$ | async; as accounts) {
   @for (account of accounts; track account.id; let i = $index) {
@@ -7,6 +10,9 @@
       (withdrawMoney$)="onWithdrawMoney(account.id, $event)"
       [ngClass]="{ 'main-account': i === 0 }"
     >
+      <button #deleteButton (click)="deleteAccount(account.id)">
+        Delete Account
+      </button>
     </app-bank-account>
   }
 } @else {
