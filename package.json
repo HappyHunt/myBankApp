@@ -55,7 +55,7 @@
   },
   "lint-staged": {
     "*.{ts,html,scss}": [
-      "prettier --check src/**/*.{ts,scss,html}"
+      "prettier --check **/**/*.{ts,scss,html}"
     ],
     "*.{ts,html}": [
       "npx eslint"

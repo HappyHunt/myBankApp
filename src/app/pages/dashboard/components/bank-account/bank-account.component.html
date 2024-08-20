@@ -1,4 +1,9 @@
-<div [appCardStatus]="account.status" [formGroup]="form" class="bank-account">
+<div
+  [@fade]="account.status"
+  [appCardStatus]="account.status"
+  [formGroup]="form"
+  class="bank-account"
+>
   <div class="bank-account__name">
     Name: <span class="font-weight-bold"> {{ account.name }} </span>
   </div>

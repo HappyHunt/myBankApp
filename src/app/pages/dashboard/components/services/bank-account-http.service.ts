@@ -1,9 +1,11 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { delay, Observable, of } from 'rxjs';
 import { BankAccount, Currency } from '../../models/dashboard.model';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable()
 export class BankAccountHttpService {
+  private readonly http = inject(HttpClient);
   BANK_ACCOUNT: BankAccount[] = [
     {
       id: 1,
@@ -57,5 +59,9 @@ export class BankAccountHttpService {
     this.BANK_ACCOUNT = this.BANK_ACCOUNT.filter(
       (account) => account.id !== accountId,
     );
+  }
+
+  getResponseError(): Observable<unknown> {
+    return this.http.get<unknown>('/dummy/test');
   }
 }

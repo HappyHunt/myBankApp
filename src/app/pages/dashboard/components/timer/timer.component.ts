@@ -10,6 +10,7 @@ import {
 import { interval, Subject, takeUntil } from 'rxjs';
 import { Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
+import { AuthService } from '../../../../shared/services/auth.service';
 
 @Component({
   selector: 'app-timer',
@@ -23,6 +24,8 @@ export class TimerComponent implements OnDestroy {
   @Input() startFrom = 300000;
   @Input() decrement = 1000;
 
+  private readonly authService = inject(AuthService);
+
   destroy$: Subject<void> = new Subject<void>();
   timer$ = signal(this.startFrom);
   router = inject(Router);
@@ -34,11 +37,14 @@ export class TimerComponent implements OnDestroy {
         this.timer$.update((value) => value - this.decrement);
       });
 
-    effect(() => {
-      if (this.timer$() <= 0) {
-        this.router.navigateByUrl('login');
-      }
-    });
+    effect(
+      () => {
+        if (this.timer$() <= 0) {
+          this.authService.logout();
+        }
+      },
+      { allowSignalWrites: true },
+    );
   }
 
   ngOnDestroy(): void {

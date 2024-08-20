@@ -25,6 +25,7 @@ import { NgClass, NgIf } from '@angular/common';
 import { Subject, takeUntil } from 'rxjs';
 import { CardStatusDirectives } from '../../../../shared/directives/card-status.directives';
 import { InputNumberComponent } from '../../../../shared/components/input-number/input-number.component';
+import { animate, style, transition, trigger } from '@angular/animations';
 
 @Component({
   selector: 'app-bank-account',
@@ -41,6 +42,24 @@ import { InputNumberComponent } from '../../../../shared/components/input-number
   templateUrl: './bank-account.component.html',
   styleUrl: './bank-account.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  animations: [
+    trigger('fade', [
+      transition('void => active', [
+        style({ opacity: 0 }),
+        animate(1500, style({ opacity: 1 })),
+      ]),
+      transition('void => inactive', [
+        style({
+          'background-color': 'rgb(200,20,20)',
+          transform: 'translateY(100%)',
+        }),
+        animate(
+          500,
+          style({ 'background-color': 'white', transform: 'translateY(0%)' }),
+        ),
+      ]),
+    ]),
+  ],
 })
 export class BankAccountComponent
   implements OnInit, AfterContentInit, OnDestroy
